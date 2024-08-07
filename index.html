@@ -73,14 +73,14 @@
      <button id = "buy">Купить</button>
 
  </div>
- <form id = "form">
-  <input type="text" placeholder="Имя" id="user_name">
-  <input type="text" placeholder="Email" id="user_email">
-  <input type="text" placeholder="Телефон" id="user_phone">
-  <button id = "order">Оформить</button>
- </form>
-<script src="https://telegram.org/js/telegram-web-app.js"></script>
-<script>
+   <form id = "form">
+   <input type="text" placeholder="Имя" id="user_name">
+   <input type="text" placeholder="Email" id="user_email">
+   <input type="text" placeholder="Телефон" id="user_phone">
+   <button id = "order">Оформить</button>
+   </form>
+ <script src="https://telegram.org/js/telegram-web-app.js"></script>
+ <script>
     let tg = windox.Telegram.WebApp;
     let buy = document.getElementById("buy");
     let order = document.getElementById("order");
@@ -94,7 +94,7 @@
     order.addEventListener("click", ()=> {
         tg.close();
     });
-</script>
+ </script>
 
 </body>
 </html>
