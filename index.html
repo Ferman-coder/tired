@@ -104,12 +104,12 @@
 <body>
   <div class="container">
     <div class="inner">
-        <div class="item"><img src="burger.png" alt="" class="img"><button class="btn" id="btn1">Добавить</button></div>
-        <div class="item"><img src="burger.png" alt="" class="img"><button class="btn" id="btn2">Добавить</button></div>
-        <div class="item"><img src="burger.png" alt="" class="img"><button class="btn" id="btn3">Добавить</button></div>
-        <div class="item"><img src="burger.png" alt="" class="img"><button class="btn" id="btn4">Добавить</button></div>
-        <div class="item"><img src="burger.png" alt="" class="img"><button class="btn" id="btn5">Добавить</button></div>
-        <div class="item"><img src="burger.png" alt="" class="img"><button class="btn" id="btn6">Добавить</button></div>
+        <div class="item" id="item1"><img src="burger.png" alt="" class="img"><button class="btn" id="btn1">Добавить</button></div>
+        <div class="item" id="item2"><img src="burger.png" alt="" class="img"><button class="btn" id="btn2">Добавить</button></div>
+        <div class="item" id="item3"><img src="burger.png" alt="" class="img"><button class="btn" id="btn3">Добавить</button></div>
+        <div class="item" id="item4" ><img src="burger.png" alt="" class="img"><button class="btn" id="btn4">Добавить</button></div>
+        <div class="item" id="item5"><img src="burger.png" alt="" class="img"><button class="btn" id="btn5">Добавить</button></div>
+        <div class="item" id="item6"><img src="burger.png" alt="" class="img"><button class="btn" id="btn6">Добавить</button></div>
     </div>
   </div>
   <div class="usercard" id="usercard"></div>
@@ -146,36 +146,68 @@
     let order = document.getElementById("order");
     tg.expand();
 
-    buy.addEventListener("click", ()=>{
-        document.getElementById("main").style.display = "none";
-        document.getElementById("form").style.display = "block";
-        document.getElementById("user_name").value = tg.initDataUnsafe.user.first_name + " " + tg.initDataUnsafe.user.last_name;
+    let items = []
+    function toggleItem(btn, itemId, price){
+        let item  = items.find(i => i.id === itemId);
+        if(!item){
+            let newItem = {id: itemId, price: price};
+            items.push(newItem);
+            btn.classList.add('added-to-cart');
+            btn.innerText = "Удалить из корзины";
+            let totalPrice = items.reduce((total, item) => total + item.price , 0);
+            if(totalPrice > 0){
+                tg.MainButton.setText(`Общая цена товаров ${totalPrice}`);
+                if(!tg.MainButton.isVisible){
+                    tg.MainButton.show();
+                }
+                else{
+                    tg.MainButton.hide();
+                }
 
-    });
-    order.addEventListener("click", ()=> {
-        document.getElementById("error").innerText = "";
-        let name = document.getElementById("user_name").value;
-        let email =  document.getElementById("user_email").value;
-        let phone =  document.getElementById("user_phone").value;
-        if(name.length < 5){
-            document.getElementById("error").innerText = "Ошибка в имени";
-            return;
+            }
+            else{
+                let index = items.indexOf(item);
+                items.splice(index, 1);
+                btn.classList.remove('added-to-cart');
+                btn.innerText = "Добавить в корзину";
+                let totalPrice = items.reduce((total, item) => total + item.price , 0);
+                if(!tg.MainButton.isVisible){
+                    tg.MainButton.show();
+                }
+                else{
+                    tg.MainButton.hide();
+                }
+            }
         }
-        if(email.length < 5){
-            document.getElementById("error").innerText = "Ошибка в email";
-            return;
-        }
-        if(phone.length < 5){
-            document.getElementById("error").innerText = "Ошибка в номере";
-            return;
-        }
+    }
+    Telegram.WebApp.onEvent("mainButtonClicked", function(){
         let data = {
-            name: name,
-            email: email,
-            phone: phone
-        }
+            items: items,
+            totalPrice: calculateTotalPrice()
+        };
         tg.sendData(JSON.stringify(data));
-        tg.close();
+    });
+    function calculateTotalPrice(){
+        return items.reduce((total, item) => total + item.price, 0 );
+
+    }
+    document.getElementById("btn1").addEventListener("click", function(){
+        toggleItem(this, "item1", 1500);
+    });
+    document.getElementById("btn2").addEventListener("click", function(){
+        toggleItem(this, "item2", 1500);
+    });
+    document.getElementById("btn3").addEventListener("click", function(){
+        toggleItem(this, "item3", 1500);
+    });
+    document.getElementById("btn4").addEventListener("click", function(){
+        toggleItem(this, "item4", 1500);
+    });
+    document.getElementById("btn5").addEventListener("click", function(){
+        toggleItem(this, "item5", 1500);
+    });
+    document.getElementById("btn6").addEventListener("click", function(){
+        toggleItem(this, "item6", 1500);
     });
  </script>
 
