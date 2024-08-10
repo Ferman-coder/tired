@@ -172,6 +172,7 @@
                 btn.innerText = "Добавить в корзину";
                 let totalPrice = items.reduce((total, item) => total + item.price , 0);
                 if(!tg.MainButton.isVisible){
+                    tg.MainButton.setText(`Общая цена товаров ${totalPrice}`);
                     tg.MainButton.show();
                 }
                 else{
@@ -192,22 +193,22 @@
 
     }
     document.getElementById("btn1").addEventListener("click", function(){
-        toggleItem(this, "item1", 1500);
+        toggleItem(this, "item1", 15010);
     });
     document.getElementById("btn2").addEventListener("click", function(){
-        toggleItem(this, "item2", 1500);
+        toggleItem(this, "item2", 15050);
     });
     document.getElementById("btn3").addEventListener("click", function(){
-        toggleItem(this, "item3", 1500);
+        toggleItem(this, "item3", 15040);
     });
     document.getElementById("btn4").addEventListener("click", function(){
-        toggleItem(this, "item4", 1500);
+        toggleItem(this, "item4", 15030);
     });
     document.getElementById("btn5").addEventListener("click", function(){
-        toggleItem(this, "item5", 1500);
+        toggleItem(this, "item5", 15020);
     });
     document.getElementById("btn6").addEventListener("click", function(){
-        toggleItem(this, "item6", 1500);
+        toggleItem(this, "item6", 15020);
     });
  </script>
 
