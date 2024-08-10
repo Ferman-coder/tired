@@ -141,7 +141,7 @@
  </form>
  <script src="https://telegram.org/js/telegram-web-app.js"></script>
  <script>
-    let tg = window.Telegram.WebApp;
+    let tg = window.T3elegram.WebApp;
     let buy = document.getElementById("buy");
     let order = document.getElementById("order");
     tg.expand();
@@ -156,13 +156,12 @@
             btn.innerText = "Удалить из корзины";
             let totalPrice = items.reduce((total, item) => total + item.price , 0);
             if(totalPrice > 0){
+                tg.MainButton.setText(`Общая цена товаров ${totalPrice}`);
                 if(!tg.MainButton.isVisible){
-                    tg.MainButton.setText(`Общая цена товаров ${totalPrice}`);
+                    
                     tg.MainButton.show();
                 }
-                else{
-                    tg.MainButton.hide();
-                }
+              
 
             }
             else{
