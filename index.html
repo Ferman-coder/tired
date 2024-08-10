@@ -161,7 +161,9 @@
                     
                     tg.MainButton.show();
                 }
-              
+                else{
+                    tg.MainButton.hide();
+                }
 
             }
             else{
@@ -170,11 +172,15 @@
                 btn.classList.remove('added-to-cart');
                 btn.innerText = "Добавить в корзину";
                 let totalPrice = items.reduce((total, item) => total + item.price , 0);
-                if(!tg.MainButton.isVisible){
-                    tg.MainButton.setText(`Общая цена товаров ${totalPrice}`);
+                if(totalPrice > 0){
+                 tg.MainButton.setText(`Общая цена товаров ${totalPrice}`);   
+                 if(!tg.MainButton.isVisible){
                     tg.MainButton.show();
+                 }
+                 else{
+                    tg.MainButton.hide();
+                 }
                 }
-              
             }
         }
     }
